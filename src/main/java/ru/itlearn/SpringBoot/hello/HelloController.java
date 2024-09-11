@@ -14,7 +14,15 @@ public class HelloController {
 
     @GetMapping("/hello")
     public String hello(@RequestParam(value = "name", defaultValue = "World")String name){
-        return String.format("Hello %s!",name);
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(String.format("Hello %s!\n", name));
+
+        stringBuilder.append(updateArrayList(""));
+        stringBuilder.append(showArrayList());
+        stringBuilder.append(updateHashMap(""));
+        stringBuilder.append(showHashMap());
+        stringBuilder.append(showAllLength());
+        return stringBuilder.toString();
     }
     @GetMapping("/update-array")
     public String updateArrayList(@RequestParam(value = "s") String s) {
@@ -22,34 +30,26 @@ public class HelloController {
             ArrayList = new ArrayList<>();
         }
         ArrayList.add(s);
-        return "Array updated: " + ArrayList;
+        return "Array updated: " + ArrayList + "\n";
     }
-
     @GetMapping("/show-array")
     public String showArrayList() {
-        return "Elements in ArrayList: " + ArrayList;
+        return "Elements in ArrayList: " + ArrayList + "\n";
     }
-
     @GetMapping("/update-map")
     public String updateHashMap(@RequestParam(value = "s") String s) {
-        // Если HashMap пустой, создаем новый
         if (HashMap.isEmpty()) {
             HashMap = new HashMap<>();
         }
         HashMap.put(HashMap.size() + 1, s);
-        return "Map updated: " + HashMap;
+        return "Map updated: " + HashMap + "\n";
     }
-
     @GetMapping("/show-map")
     public String showHashMap() {
-        return "Elements in HashMap: " + HashMap;
+        return "Elements in HashMap: " + HashMap + "\n";
     }
-
     @GetMapping("/show-all-length")
     public String showAllLength() {
-        return "ArrayList size: " + ArrayList.size() + ", HashMap size: " + HashMap.size();
+        return "ArrayList size: " + ArrayList.size() + ", HashMap size: " + HashMap.size() + "\n";
     }
 }
-
-
-
